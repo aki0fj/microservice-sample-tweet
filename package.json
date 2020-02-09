@@ -1,0 +1,23 @@
+{
+  "name": "tweet",
+  "version": "1.0.0",
+  "description": "Tweet service",
+  "main": "app.js",
+  "repository": "https://github.com/aki0fj/microservice-sample-tweet.git",
+  "author": "aki0fj",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.2",
+    "mongoose": "^5.8.11",
+    "morgan": "^1.9.1"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "NODE_ENV=development nodemon ./app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
