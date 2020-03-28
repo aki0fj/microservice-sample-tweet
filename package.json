@@ -11,13 +11,20 @@
     "express": "^4.17.1",
     "mongodb": "^3.5.2",
     "mongoose": "^5.8.11",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "swagger-jsdoc": "^4.0.0"
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "NODE_ENV=development nodemon ./app.js"
+    "dev": "NODE_ENV=development nodemon ./app.js",
+    "swagger": "swagger-jsdoc -o ./swagger/swagger.yml -d ./swagger/swaggerDef.js ./controllers/**/*.js ./swagger/components.yml",
+    "test": "ava",
+    "watch": "ava --watch"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "ava": "^3.5.1",
+    "mongodb-memory-server": "^6.5.0",
+    "nodemon": "^2.0.2",
+    "supertest": "^3.4.2"
   }
 }
