@@ -31,10 +31,10 @@ const user1Id = new mongoose.Types.ObjectId()
 const user2Id = new mongoose.Types.ObjectId()
 
 test.before(() => {
-  function con() {
+  async function con() {
     try {
       const uri = 'mongodb://localhost:27017/mongo-mem-test'
-      mongoose.connect(uri, { useNewUrlParser: true })
+      await mongoose.connect(uri, { useNewUrlParser: true })
       console.log('test: connect ' + uri)
       clearInterval(timerId)
     }
@@ -43,7 +43,7 @@ test.before(() => {
     }
   }
 
-  const timerId = setInterval(con, 5000)
+  const timerId = setInterval(con, 1000)
 })
 
 test.beforeEach(async t => {
