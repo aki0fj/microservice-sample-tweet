@@ -21,6 +21,11 @@
     "test": "ava",
     "watch": "ava --watch"
   },
+  "config": {
+    "mongodbMemoryServer": {
+      "debug": "false"
+    }
+  },
   "devDependencies": {
     "ava": "^3.5.1",
     "mongodb-memory-server": "^6.5.0",

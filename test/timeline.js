@@ -10,7 +10,18 @@ const router = require('../controllers/v1/timeline.js')
 const model = require('../models/tweet.js')
 const Tweet = model.Tweet
 
-const mongod = new MongoMemoryServer()
+const mongod = new MongoMemoryServer({
+  instance: {
+    port: 27017,
+    dbName: 'mongo-mem-test',
+    debug: false,
+  },
+  binary: {
+    version: 'latest',
+  },
+  autoStart: true,
+})
+
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -20,9 +31,20 @@ const user1Id = new mongoose.Types.ObjectId()
 const user2Id = new mongoose.Types.ObjectId()
 const user3Id = new mongoose.Types.ObjectId()
 
-test.before(async () => {
-  const uri = await mongod.getConnectionString()
-  mongoose.connect(uri, { useNewUrlParser: true })
+test.before(() => {
+  function con() {
+    try {
+      const uri = 'mongodb://localhost:27017/mongo-mem-test'
+      mongoose.connect(uri, { useNewUrlParser: true })
+      console.log('test: connect ' + uri)
+      clearInterval(timerId)
+    }
+    catch(err) {
+      console.log('test: connect err' + err)
+    }
+  }
+
+  const timerId = setInterval(con, 5000)
 })
 
 test.beforeEach(async t => {
@@ -33,6 +55,7 @@ test.beforeEach(async t => {
   tweets.push(await new Tweet({ userId: user2Id, content: 'ddd' }).save())
   tweets.push(await new Tweet({ userId: user3Id, content: 'eee' }).save())
   t.context.tweets = tweets
+  console.log('set tweets');
 })
 
 test.afterEach.always(async () => {
@@ -41,6 +64,7 @@ test.afterEach.always(async () => {
 
 // POST /timeline
 test.serial('get timeline', async t => {
+  console.log('start get timeline');
   const res = await supertest(app)
     .post('/timeline')
     .send([user1Id.toString(), user2Id.toString()])
