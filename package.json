@@ -23,12 +23,12 @@
   },
   "config": {
     "mongodbMemoryServer": {
-      "debug": "false"
+      "debug": "1"
     }
   },
   "devDependencies": {
     "ava": "^3.5.1",
-    "mongodb-memory-server": "^6.5.0",
+    "mongodb-memory-server": "^6.5.1",
     "nodemon": "^2.0.2",
     "supertest": "^3.4.2"
   }
